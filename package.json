@@ -1,0 +1,20 @@
+{
+    "name": "at-test",
+    "optionalDependencies": {},
+    "readme": "README.md",
+    "scripts": {},
+    "version": "1.0.0",
+    "dependencies": {
+        "at-js": "1.1.6",
+        "co": "4.6.0"
+    },
+    "description": "README.md",
+    "devDependencies": {},
+    "main": "./index",
+    "maintainers": [
+        {
+            "email": "chemingjun@126.com",
+            "name": "chemingjun"
+        }
+    ]
+}
