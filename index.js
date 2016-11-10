@@ -15,9 +15,9 @@ require('at-js').define('test.\\S+', {
                 'test.start': function (_ctx, _argAry) {
                     start = "function*(){return " + (_ctx.refType==='generator' ? 'yield ' : '') + _ctx.refName + "();}";
                 }, 'test.step': function (_ctx, _argAry) {
-                    step.push("function*(){return " + (_ctx.isGenerator ? 'yield ' : '') + _ctx.refName + "();}");
+                    step.push("function*(){return " + (_ctx.refType==='generator' ? 'yield ' : '') + _ctx.refName + "();}");
                 }, 'test.finish': function (_ctx, _argAry) {
-                    finish = "function*(){return " + (_ctx.isGenerator ? 'yield ' : '') + _ctx.refName + "();}";
+                    finish = "function*(){return " + (_ctx.refType==='generator' ? 'yield ' : '') + _ctx.refName + "();}";
                 }
             }, script: function () {
                 return "module.exports = {" + (start ? ("start:" + start + "," ) : '') + "step:[" + step.join(',') + "]" + (finish ? (",finish:" + finish) : '') + "}";
