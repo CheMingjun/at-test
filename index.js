@@ -20,9 +20,7 @@ require('at-js').define('test.\\S+', {
                     finish = "function*(){return " + (_ctx.isGenerator ? 'yield ' : '') + _ctx.refName + "();}";
                 }
             }, script: function () {
-                return {
-                    exports: "module.exports = {" + (start ? ("start:" + start + "," ) : '') + "step:[" + step.join(',') + "]" + (finish ? (",finish:" + finish) : '') + "}"
-                }
+                return "module.exports = {" + (start ? ("start:" + start + "," ) : '') + "step:[" + step.join(',') + "]" + (finish ? (",finish:" + finish) : '') + "}";
             }
         }
     }
