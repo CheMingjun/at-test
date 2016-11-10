@@ -121,3 +121,5 @@ require('at-test')().then(function(report){
 ```
     node main.js
 ```
+
+> 欢迎提issue，或者直接联系作者即时交流(微信号:ALJZJZ) 
