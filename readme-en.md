@@ -1,13 +1,10 @@
-#at-test(基于注释的JS单元测试框架)
->Base on [at-js](https://github.com/CheMingjun/at-js)
+#at-test
+>The node unit test framework base on [at-js](https://github.com/CheMingjun/at-js)
 
-##使用方法
-###安装
-```
-    npm install at-test --save-dev
-```
-###示例一
-1. 假设您的module文件结构是这样的:
+##Useage
+###Sample test
+1. Install at-test module: `npm install at-test --save-dev` 
+2. Create test1.js and main.js files,your module's structure may looks like this:
 ```html
 -myModule
     |-node_modules
@@ -15,7 +12,7 @@
     |-main.js
     |-package.json
 ```
-2. 文件test1.js的内容:
+2. Here is the content of test1.js file:
 ```js
 var assert = require('assert');
 
@@ -35,20 +32,16 @@ var t1 = function () {
     assert.equal(t,100);
 }
 ```
-3. 文件main.js的内容:
+3. And main.js is:
 ```js
 require('at-test')(['./test1.js']).then(function(report){
     console.log(report);
 });
 ```
-4. 运行
-```
-    node main.js
-```
+4. Run or debug main.js,you will get the test report.
 
-###示例二：复杂测试
-module中的test.js中，代码修改成：
-
+###Transaction test
+In at-test,you can describe transactional test like this:
 ```js
 var assert = require('assert');
 var ds = null;
@@ -95,29 +88,4 @@ module.exports = {
 var dao = function(){
     throw new Error('No one implement me?oh my God....');
 }
-```
-
-###示例三：测试文件自动扫描
-1. module文件结构如下:
-```html
--myModule
-    |-node_modules
-    |-folder0
-        |-a.test.js
-    |-folder1
-        |-b.test.js
-    |-main.js
-    |-package.json
-```
-> 在module的除node_modules外的任意位置，
-创建任意名称后缀为.test.js的单元测试文件
-2. 文件main.js的内容:
-```js
-require('at-test')().then(function(report){
-    console.log(report);
-});
-```
-4. 运行
-```
-    node main.js
 ```
