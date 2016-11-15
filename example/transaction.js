@@ -41,16 +41,3 @@ module.exports = {
         return {suc:true};
     }
 }
-/**
- * Annotation for dao
- */
-'@dao'
-var dao = function(){
-    throw new Error('No one implement me?oh my God....');
-}
-
-/**
- * Extention for delete an object
- */
-'@extention';
-var delExt = function(_itemObj){}
