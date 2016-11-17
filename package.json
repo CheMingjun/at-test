@@ -3,12 +3,11 @@
     "optionalDependencies": {},
     "description": "基于@Annotation的单元测试框架",
     "scripts": {},
-    "version": "1.1.1",
+    "version": "1.1.2",
     "dependencies": {
         "at-js": ">=1.2.3",
         "co": ">=4.6.0"
     },
-    "description": "readme.md",
     "devDependencies": {},
     "main": "./index",
     "maintainers": [
