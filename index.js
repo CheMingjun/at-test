@@ -30,60 +30,61 @@ require('at-js').define('test.\\S+', {
  * @param _v ['./test/t0.js','./test/t1.js']
  * @returns {{then: then}}
  */
-module.exports = function (_v) {
-    _v = _v||'test.js$';
-    var comp = null, onErr = null,pro = function(_v){
-        var gen = require('./lib/exe')(_v);
-        require('co')(gen).then(function (_report) {
-            comp && comp(_report);
-        }, function (_err) {
-            onErr && onErr(_err);
-        })
-    };
-    if(util.isArray(_v)){//test files in array
-        pro(_v);
-    }else if(typeof _v ==='string'){//test files by ext name
-        var bsFilePath = (function () {
-            let pt = module.parent, rtn = pt ? pt.filename : __filename;
-            while (pt != null) {
-                rtn = pt ? pt.filename : __filename;
-                pt = pt.parent;
-            }
-            if (!rtn) {
-                throw new Error('Toybricks init error.');
-            }
-            return rtn;
-        })();
-
-        var dirPath = path.dirname(bsFilePath);
-        var ts = './', tp = path.join(dirPath, ts + 'package.json');
-        while (tp != '' && !fs.existsSync(tp)) {
-            ts += '../';
-            tp = path.join(dirPath, ts + 'package.json')
-        }
-        //------------------------------------------------------------------------------
-        var fAry = [],reg = new RegExp(_v),parse = function(mdPath){
-            let dirs = fs.readdirSync(mdPath);
-            dirs.forEach(function (filename, _index) {
-                let tp = path.join(mdPath, filename);
-                let _stats = fs.statSync(tp);
-                if (_stats.isDirectory()&&filename!=='node_modules') {
-                    parse(tp);
-                }else if(reg.test(filename)){
-                    fAry.push(tp)
+module.exports = {
+    run:function (_v) {
+        _v = _v||'test.js$';
+        var comp = null,pro = function(_v){
+            var gen = require('./lib/exe')(_v);
+            require('co')(gen).then(function (_report) {
+                comp && comp(null,_report);
+            }, function (_err) {
+                comp && comp(_err);
+            })
+        };
+        if(util.isArray(_v)){//test files in array
+            pro(_v);
+        }else if(typeof _v ==='string'){//test files by ext name
+            var bsFilePath = (function () {
+                let pt = module.parent, rtn = pt ? pt.filename : __filename;
+                while (pt != null) {
+                    rtn = pt ? pt.filename : __filename;
+                    pt = pt.parent;
                 }
-            });
-        }
-        parse(path.dirname(tp));
-        if(fAry.length>0){
-            pro(fAry);
-        }
-    }
+                if (!rtn) {
+                    throw new Error('Toybricks init error.');
+                }
+                return rtn;
+            })();
 
-    return {
-        then: function (_comp, _err) {
-            comp = _comp;
-            onErr = _err;
+            var dirPath = path.dirname(bsFilePath);
+            var ts = './', tp = path.join(dirPath, ts + 'package.json');
+            while (tp != '' && !fs.existsSync(tp)) {
+                ts += '../';
+                tp = path.join(dirPath, ts + 'package.json')
+            }
+            //------------------------------------------------------------------------------
+            var fAry = [],reg = new RegExp(_v),parse = function(mdPath){
+                let dirs = fs.readdirSync(mdPath);
+                dirs.forEach(function (filename, _index) {
+                    let tp = path.join(mdPath, filename);
+                    let _stats = fs.statSync(tp);
+                    if (_stats.isDirectory()&&filename!=='node_modules') {
+                        parse(tp);
+                    }else if(reg.test(filename)){
+                        fAry.push(tp)
+                    }
+                });
+            }
+            parse(path.dirname(tp));
+            if(fAry.length>0){
+                pro(fAry);
+            }
+        }
+
+        return {
+            finish: function (_comp) {
+                comp = _comp;
+            }
         }
     }
 };
