@@ -1,9 +1,9 @@
 {
     "name": "at-test",
     "optionalDependencies": {},
-    "readme": "readme.md",
+    "description": "基于@Annotation的单元测试框架",
     "scripts": {},
-    "version": "1.1.0",
+    "version": "1.1.1",
     "dependencies": {
         "at-js": ">=1.2.3",
         "co": ">=4.6.0"
