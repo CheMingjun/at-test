@@ -3,9 +3,9 @@
     "optionalDependencies": {},
     "description": "基于@Annotation的单元测试框架",
     "scripts": {},
-    "version": "1.1.4",
+    "version": "1.1.5",
     "dependencies": {
-        "at-js": ">=1.2.3",
+        "at-js": ">=1.2.7",
         "co": ">=4.6.0"
     },
     "devDependencies": {},
